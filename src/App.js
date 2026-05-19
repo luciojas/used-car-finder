@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import SearchPanel from "./components/SearchPanel";
-
+import * as gemini from './services/gemini'
 function App() {
   const[searchQuery, setSearchQuery]=useState('');
 
-  function handleSearch(query){
+  async function handleSearch(query){
     setSearchQuery(query);
+    await gemini.parseCarSearch(query);
   }
 
   return (
