@@ -22,8 +22,5 @@ An AI-powered used car search app that ranks listings by value, considering more
 4.Run `npm start`
 
 ## Status 
-<<<<<<< HEAD
 -In Progress
-=======
--In Progress
->>>>>>> 8f81cd42c7b1a898a82975ccc17e8b28f56cc8bd
+
