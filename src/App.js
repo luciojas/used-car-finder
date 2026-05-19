@@ -1,21 +1,18 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import SearchPanel from "./components/SearchPanel";
 
 function App() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const[searchQuery, setSearchQuery]=useState('');
+
+  function handleSearch(query){
+    setSearchQuery(query);
+  }
 
   return (
     <div>
       <h1>Used Car Finder</h1>
-      <input
-        type="text"
-        placeholder="Describe the car you want..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      <p>You typed: {searchQuery}</p>
-      <button onClick={() => alert('Searching for: '+ searchQuery)}>
-        Search
-      </button>
+      <SearchPanel onSearch={handleSearch}/>
+      {searchQuery && <p>Searching for: {searchQuery}</p>}
     </div>
   );
 }
