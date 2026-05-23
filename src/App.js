@@ -3,7 +3,7 @@ import SearchPanel from "./components/SearchPanel";
 import CarCard from "./components/CarCard";
 import scoreListings from './services/scorer';
 import AdviceBox from './components/AdviceBox';
-
+import './App.css';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,7 +25,7 @@ function App() {
     });
     const filters = await filterRes.json();
 
-    filters.location = userLocation;
+    filters.userLocation = userLocation;
     filters.radius = radius;
 
     //fetch the listings using filters
@@ -60,14 +60,18 @@ function App() {
 
   return (
     <div>
-      <h1>Used Car Finder</h1>
-      <SearchPanel onSearch={handleSearch} />
-      {loading && <p>Searching...</p>}
-      <AdviceBox advice={advice} />
-      <div className="results">
-        {listings.map(car => (
-          <CarCard key={car.id} car={car} />
-        ))}
+      <div className="app-header">
+        <h1>🚗 Used Car Finder</h1>
+        <SearchPanel onSearch={handleSearch} />
+      </div>
+      <div className="main-content">
+        {loading && <p className="loading">Finding the best deals...</p>}
+        <AdviceBox advice={advice} />
+        <div className="results-grid">
+          {listings.map(car => (
+            <CarCard key={car.id} car={car} />
+          ))}
+        </div>
       </div>
     </div>
   );
