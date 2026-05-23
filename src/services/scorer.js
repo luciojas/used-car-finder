@@ -6,12 +6,16 @@ const RELIABILITY = {
 function scoreListing(listings) {
     if(!listings.length) return [];
 
-    const prices = listings.map(c => c.price);
-    const miles = listings.map(c => c.miles);
+    const valid = listings.filter(c => c.price && c.miles);
+
+    if (!valid.length) return [];
+
+    const prices = valid.map(c => c.price);
+    const miles = valid.map(c => c.miles);
     const minPrice = Math.min(...prices), maxPrice = Math.max(...prices);
     const minMiles = Math.min(...miles), maxMiles = Math.max(...miles);
 
-    return listings.map(car => {
+    return valid.map(car => {
         const priceScore = maxPrice === minPrice ? 100 
         : ((maxPrice - car.price) / (maxPrice-minPrice)) *100;
 

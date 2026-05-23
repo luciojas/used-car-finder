@@ -10,8 +10,8 @@ function CarCard({car}){
             <div>
                 <h2 style={{margin: '0 0 8px'}}>{car.heading}</h2>
                 <p>Value Score: <strong>{car.score}/100</strong></p>
-                <p><strong>${car.price.toLocaleString()}</strong></p>
-                <p>{car.miles.toLocaleString()} miles</p>
+                <p><strong>{car.price ? `$${car.price.toLocaleString()}` : 'Price not listed'}</strong></p>
+                <p>{car.miles ? `${car.miles.toLocaleString()} miles` : 'Mileage not listed'}</p>
                 <p>{car.dealer.city}, {car.dealer.state}</p>
                 <a href={car.vdp_url} target="_blank" rel="noreferrer">View Listing →</a>
             </div>
