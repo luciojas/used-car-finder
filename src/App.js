@@ -1,19 +1,48 @@
 import React, { useState } from "react";
 import SearchPanel from "./components/SearchPanel";
-import * as gemini from './services/gemini'
+import CarCard from "./components/CarCard";
+import scoreListings from './services/scorer';
+
 function App() {
   const[searchQuery, setSearchQuery]=useState('');
+  const[listings, setListings]=useState([]);
+  const[loading, setLoading]=useState(false);
 
   async function handleSearch(query){
     setSearchQuery(query);
-    await gemini.parseCarSearch(query);
+    setLoading(true);
+    setListings([]);
+
+    //parses the query into filters
+    const filterRes=await fetch('http://localhost:5000/api/search', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({query})
+    });
+    const filters = await filterRes.json();
+
+    //fetch the listings using filters
+    const listingRes=await fetch('http://localhost:5000/api/listings', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(filters)
+    });
+    const data = await listingRes.json();
+
+    setListings(scoreListings(data));
+    setLoading(false);
   }
 
   return (
     <div>
       <h1>Used Car Finder</h1>
       <SearchPanel onSearch={handleSearch}/>
-      {searchQuery && <p>Searching for: {searchQuery}</p>}
+      {loading && <p>Searching...</p>}
+      <div className="results">
+        {listings.map(car=>(
+          <CarCard key={car.id} car={car} />
+        ))}
+      </div>
     </div>
   );
 }
