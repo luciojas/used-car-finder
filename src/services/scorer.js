@@ -1,9 +1,9 @@
 const RELIABILITY = {
-    Toyota: 95, Honda: 92, Mazda: 90, Subaru: 85, Hyundai: 80, Kia: 78,
+    Toyota: 95, Honda: 92, Mazda: 90, Subaru: 85, Hyundai: 80,
     Kia: 78, Chevrolet: 72, Ford: 70, Nissan: 68, Jeep: 55
 };
 
-function scoreListing(listings) {
+function scoreListings(listings) {
     if(!listings.length) return [];
 
     const valid = listings.filter(c => c.price && c.miles);
@@ -30,4 +30,4 @@ function scoreListing(listings) {
     }).sort((a, b) => b.score - a.score);
 }
 
-export default scoreListing;
+export default scoreListings;
