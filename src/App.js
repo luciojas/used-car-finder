@@ -46,17 +46,7 @@ function App() {
     const adviceData = await adviceRes.json();
     setAdvice(adviceData.advice);
     setLoading(false);
-
-    const scrapeRes = await fetch('http://localhost:5000/api/scrape', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(filters)
-    });
-    const scrapeData = await scrapeRes.json();
-    console.log('Carfax listings:', scrapeData);
   }
-
-
 
   return (
     <div>
